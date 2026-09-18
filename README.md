@@ -155,45 +155,6 @@ Users do not need to install developer tools or build the project from source:
 2. **GitHub Actions Artifacts:**
    You can also manually trigger the **Release** workflow in the Actions tab (`workflow_dispatch`) to generate and download the `ImageForge-aarch64-dmg` artifact directly from the run summary.
 
-## Architecture
-
-```
-imageforge/
-├── src/                        # Svelte 5 frontend
-│   ├── App.svelte              # Root component, keyboard shortcuts
-│   ├── app.css                 # System dark/light theme variables
-│   └── lib/
-│       ├── components/         # UI components
-│       │   ├── DropZone.svelte
-│       │   ├── FileQueue.svelte
-│       │   ├── FileRow.svelte
-│       │   ├── CompressionControls.svelte
-│       │   ├── ProgressView.svelte
-│       │   ├── ResultsSummary.svelte
-│       │   └── PreferencesModal.svelte
-│       ├── stores/
-│       │   └── appState.svelte.ts   # Svelte 5 runes state
-│       └── config/
-│           └── appConfig.ts
-│
-└── src-tauri/                  # Rust backend
-    └── src/
-        ├── models.rs           # IPC types (ImageInfo, CompressionResult, …)
-        ├── errors/mod.rs       # AppError with user-friendly messages
-        ├── metadata.rs         # Magic-byte format detection, EXIF/ICC
-        ├── validation.rs       # verify_dimensions invariant + calculate_savings
-        ├── output.rs           # Collision-safe paths + atomic_write_file
-        ├── processor.rs        # Per-file compression lifecycle
-        ├── queue.rs            # Bounded async worker pool + CancellationToken
-        ├── commands.rs         # Tauri IPC command handlers
-        └── formats/
-            ├── jpeg.rs         # libjpeg-turbo encode/decode
-            ├── png.rs          # oxipng lossless optimization
-            ├── webp.rs         # libwebp encode/decode
-            ├── heic.rs         # libheif-rs encode/decode
-            └── convert.rs      # Any-format → JPG conversion
-```
-
 ### Compression pipeline
 
 ```
