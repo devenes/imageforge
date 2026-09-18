@@ -1,6 +1,6 @@
 {
   "name": "imageforge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A local-first macOS image compressor and JPG converter",
   "author": "Enes Turan <https://github.com/devenes>",
   "license": "MIT",
