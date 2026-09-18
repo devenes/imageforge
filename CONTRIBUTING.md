@@ -32,7 +32,7 @@ Before contributing code, ensure you have installed:
 Install the required native image codec libraries via Homebrew:
 
 ```bash
-brew install jpeg-turbo libwebp libheif cmake nasm pkg-config
+brew install jpeg-turbo webp libheif cmake nasm pkgconf
 ```
 
 ---
@@ -41,7 +41,7 @@ brew install jpeg-turbo libwebp libheif cmake nasm pkg-config
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-org/imageforge.git
+   git clone https://github.com/devenes/imageforge.git
    cd imageforge
    ```
 

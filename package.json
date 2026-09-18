@@ -1,6 +1,17 @@
 {
   "name": "imageforge",
   "version": "0.1.0",
+  "description": "A local-first macOS image compressor and JPG converter",
+  "author": "Enes Turan <https://github.com/devenes>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devenes/imageforge.git"
+  },
+  "homepage": "https://github.com/devenes/imageforge",
+  "bugs": {
+    "url": "https://github.com/devenes/imageforge/issues"
+  },
   "private": true,
   "type": "module",
   "scripts": {

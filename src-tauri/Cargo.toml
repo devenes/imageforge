@@ -2,8 +2,11 @@
 name = "imageforge"
 version = "0.1.0"
 description = "A local-first macOS image compressor and JPG converter"
-authors = ["ImageForge Team"]
+authors = ["Enes Turan <https://github.com/devenes>"]
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/devenes/imageforge"
+homepage = "https://github.com/devenes/imageforge"
 
 [lib]
 name = "imageforge_lib"

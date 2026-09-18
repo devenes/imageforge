@@ -41,7 +41,7 @@ We strongly recommend always running the latest release of ImageForge.
 If you discover a security vulnerability in ImageForge, please report it responsibly:
 
 ### How to Report
-1. **GitHub Security Advisory**: Submit a report privately via [GitHub Security Advisories](https://github.com/your-org/imageforge/security/advisories/new).
+1. **GitHub Security Advisory**: Submit a report privately via [GitHub Security Advisories](https://github.com/devenes/imageforge/security/advisories/new).
 2. **Email Disclosure**: Alternatively, email the maintainers at `security@imageforge.app` with:
    - A clear description of the vulnerability and affected component.
    - Step-by-step reproduction instructions or a minimal proof-of-concept (PoC).

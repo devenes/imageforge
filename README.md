@@ -1,6 +1,27 @@
+<div align="center">
+
+<img src="assets/banner.svg" alt="ImageForge — Local-First macOS Image Compressor & JPG Converter" width="100%" />
+
+<br />
+
 # ImageForge
 
-A local-first macOS utility for **batch image compression** and **JPG conversion** — no uploads, no subscriptions, no internet required.
+**A blazing-fast, local-first macOS utility for batch image compression and JPG conversion.**  
+*No cloud uploads · No subscriptions · 100% offline & private*
+
+<br />
+
+[![CI](https://github.com/devenes/imageforge/actions/workflows/ci.yml/badge.svg)](https://github.com/devenes/imageforge/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/devenes/imageforge/releases)
+[![Platform](https://img.shields.io/badge/platform-macOS%2011%2B%20(Apple%20Silicon%20%7C%20Intel)-black.svg?logo=apple&logoColor=white)](https://github.com/devenes/imageforge)
+[![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tauri](https://img.shields.io/badge/Tauri-v2-24C8D8.svg?logo=tauri&logoColor=white)](https://tauri.app/)
+[![Svelte](https://img.shields.io/badge/Svelte-5-FF3E00.svg?logo=svelte&logoColor=white)](https://svelte.dev/)
+[![Rust](https://img.shields.io/badge/Rust-1.98%2B-DEA584.svg?logo=rust&logoColor=white)](https://www.rust-lang.org/)
+
+</div>
+
+---
 
 ImageForge processes images entirely on-device using native codec libraries for maximum quality and speed. It supports JPEG, PNG, WebP, and HEIC/HEIF inputs, with lossless PNG optimization and three quality presets across all lossy formats.
 
@@ -44,13 +65,13 @@ ImageForge processes images entirely on-device using native codec libraries for 
 ### 1. Install system dependencies
 
 ```sh
-brew install jpeg-turbo libwebp libheif cmake nasm
+brew install jpeg-turbo webp libheif cmake nasm pkgconf
 ```
 
 ### 2. Clone and install
 
 ```sh
-git clone https://github.com/your-org/imageforge.git
+git clone https://github.com/devenes/imageforge.git
 cd imageforge
 pnpm install
 ```
@@ -203,3 +224,10 @@ cargo test --manifest-path src-tauri/Cargo.toml
 MIT — see [`LICENSE`](LICENSE) for full text.
 
 Third-party notices for libjpeg-turbo, libwebp, libheif, and oxipng are in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
+
+---
+
+## Author
+
+Crafted with care by [Enes Turan](https://github.com/devenes).
+
