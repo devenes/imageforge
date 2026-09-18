@@ -50,7 +50,6 @@ jobs:
 
       - name: Install system native dependencies (Homebrew)
         run: |
-          brew update --preinstall
           brew install jpeg-turbo libwebp libheif cmake nasm pkg-config
 
       - name: Set up Rust toolchain
