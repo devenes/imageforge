@@ -79,33 +79,81 @@ pnpm install
 ### 3. Run in development mode
 
 ```sh
-export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$(brew --prefix)/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
 pnpm tauri dev
 ```
 
 ### 4. Run tests
 
 ```sh
-export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PKG_CONFIG_PATH="$(brew --prefix)/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
 cargo test --manifest-path src-tauri/Cargo.toml
 ```
 
 ---
 
-## Building a Release
+## Local macOS Build & Packaging
+
+ImageForge currently ships as an **unsigned Apple Silicon application**.
+
+No Apple Developer account, certificate, API key, or notarization is required to build and use the application locally.
+
+The release build is currently:
+- macOS only
+- Apple Silicon only (`aarch64-apple-darwin`)
+- unsigned
+- not notarized
+- self-contained (all required native dynamic libraries are bundled into the application)
+
+### Run the Release Pipeline
+
+Run the master release pipeline script:
 
 ```sh
-export PKG_CONFIG_PATH="/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
-pnpm tauri build
+./scripts/build_release.sh
 ```
 
-This produces:
-- `src-tauri/target/release/bundle/macos/ImageForge.app`
-- `src-tauri/target/release/bundle/dmg/ImageForge_0.1.0_aarch64.dmg`
+*(Optional: use `./scripts/build_release.sh --install-deps` to automatically install any missing Homebrew dependencies).*
 
-> **Note:** The distributed `.app` bundle must include `libheif.dylib` and its transitive dependencies in `Contents/Frameworks/` for zero-dependency operation. See `scripts/bundle_mac.sh` for the dylib bundling helper.
+The pipeline automatically validates the ARM64 environment, runs backend and frontend test suites, builds the Tauri binary, bundles native dynamic libraries (`Contents/Frameworks/`), rewrites dynamic library paths, and packages a drag-to-Applications DMG.
+
+### Build Outputs
+
+A successful build produces:
+
+- **Application Bundle:**
+  ```text
+  src-tauri/target/aarch64-apple-darwin/release/bundle/macos/ImageForge.app
+  ```
+- **Installer DMG:**
+  ```text
+  dist/ImageForge_<version>_aarch64.dmg
+  ```
+
+### First-Launch Behavior (Gatekeeper)
+
+Because the application is unsigned, macOS may display a security warning the first time it is opened:
+
+> *"ImageForge cannot be opened because Apple cannot check it for malicious software"* or *"unidentified developer"*.
+
+To open the application:
+1. In Finder, locate `ImageForge.app` (or open it from `/Applications`).
+2. **Right-click (or Control-click)** the app icon and select **Open**.
+3. In the dialog that appears, click **Open**.
+4. Alternatively, go to **System Settings → Privacy & Security**, scroll down to the Security section, and click **Open Anyway**.
+
+Subsequent launches will open normally without warnings.
 
 ---
+
+## Pre-built Releases & GitHub Artifacts
+
+Users do not need to install developer tools or build the project from source:
+
+1. **GitHub Releases:**
+   Every git tag (e.g. `v0.1.0`) automatically triggers the Release workflow on an Apple Silicon runner, publishing the ready-to-use `ImageForge_<version>_aarch64.dmg` under [Releases](https://github.com/devenes/imageforge/releases).
+2. **GitHub Actions Artifacts:**
+   You can also manually trigger the **Release** workflow in the Actions tab (`workflow_dispatch`) to generate and download the `ImageForge-aarch64-dmg` artifact directly from the run summary.
 
 ## Architecture
 

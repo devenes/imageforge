@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name for GitHub Release (e.g. v0.1.0). Leave empty to only build and upload artifact.'
+        type: string
+        default: ''
+      draft:
+        description: 'Create release as draft'
+        type: boolean
+        default: false
+      prerelease:
+        description: 'Create release as pre-release'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release ARM64 DMG
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install system native dependencies (Homebrew)
+        run: |
+          brew install jpeg-turbo webp libheif cmake nasm pkgconf
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Set up Rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt, clippy
+          cache-workspaces: true
+
+      - name: Run release pipeline (build, bundle, package DMG)
+        run: ./scripts/build_release.sh
+
+      - name: Upload DMG as GitHub Actions Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ImageForge-aarch64-dmg
+          path: dist/*.dmg
+          if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.tag_name != '')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag_name != '' && inputs.tag_name || github.ref_name }}
+          files: dist/*.dmg
+          draft: ${{ inputs.draft || false }}
+          prerelease: ${{ inputs.prerelease || false }}
+          generate_release_notes: true
+          name: ImageForge ${{ inputs.tag_name != '' && inputs.tag_name || github.ref_name }}
+          body: |
+            ### ImageForge Apple Silicon macOS Release
+
+            Unsigned standalone release for Apple Silicon Macs:
+            - **Platform:** macOS 11+ (Apple Silicon `aarch64-apple-darwin`)
+            - **Self-contained:** Bundles all required native codec dynamic libraries (libheif, x265, libde265, aom, vmaf, sharpyuv)
+            - **Zero dependencies:** No Homebrew required at runtime
+
+            #### Installation
+            1. Download `ImageForge_<version>_aarch64.dmg` below.
+            2. Double-click the DMG and drag **ImageForge.app** to `/Applications`.
+            3. On first launch, if macOS Gatekeeper displays an unsigned developer warning, **Right-click → Open** (or approve under **System Settings → Privacy & Security**).
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
