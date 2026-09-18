@@ -118,6 +118,9 @@ echo "==> [4/8] Installing JavaScript dependencies and running test suite..."
 cd "$ROOT_DIR"
 pnpm install --frozen-lockfile
 
+echo "    Building frontend (pnpm build)..."
+pnpm build
+
 echo "    Running Rust format check (cargo fmt)..."
 cargo fmt --all -- --check
 
@@ -126,9 +129,6 @@ cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets -- -D warnings
 
 echo "    Running Rust tests (cargo test)..."
 cargo test --manifest-path src-tauri/Cargo.toml --all-targets
-
-echo "    Building frontend (pnpm build)..."
-pnpm build
 
 # ------------------------------------------------------------------------------
 # 5. Build Tauri ARM64 Application
