@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="ImageForge — Local-First macOS Image Compressor & JPG Converter" width="100%" />
+<img src="assets/image.jpg" alt="ImageForge — Local-First macOS Image Compressor & JPG Converter" width="100%" />
 
 <br />
 
 # ImageForge
 
-**A blazing-fast, local-first macOS utility for batch image compression and JPG conversion.**  
+**A blazing-fast, local-first macOS utility for batch image compression and JPG conversion.**
 *No cloud uploads · No subscriptions · 100% offline & private*
 
 <br />
@@ -278,4 +278,3 @@ Third-party notices for libjpeg-turbo, libwebp, libheif, and oxipng are in [`THI
 ## Author
 
 Crafted with care by [Enes Turan](https://github.com/devenes).
-
