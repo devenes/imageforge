@@ -1,0 +1,43 @@
+[package]
+name = "imageforge"
+version = "0.1.0"
+description = "A local-first macOS image compressor and JPG converter"
+authors = ["ImageForge Team"]
+edition = "2021"
+
+[lib]
+name = "imageforge_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.5", features = [] }
+
+[dependencies]
+tauri = { version = "2.11.5", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-shell = "2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+tokio-util = "0.7"
+tempfile = "3"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+oxipng = "10.2"
+turbojpeg = "1.5.1"
+webp = "0.3.1"
+libheif-rs = { version = "3.0.0", features = ["v1_23"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+png = "0.17"
+bytes = "1"
+kamadak-exif = "0.6.1"
+img-parts = "0.4.0"
+num_cpus = "1.16"
+thiserror = "2"
+open = "5"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

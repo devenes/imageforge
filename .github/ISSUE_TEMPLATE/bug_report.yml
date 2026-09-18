@@ -1,0 +1,75 @@
+name: Bug Report
+description: Report a bug, crash, or unexpected behavior in ImageForge
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please provide as much detail as possible to help reproduce and resolve it quickly.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem Description
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Open ImageForge
+        2. Drag and drop file 'test.heic'
+        3. Select 'Convert to JPG' mode
+        4. Click 'Start Compression'
+        5. See error ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: image_format
+    attributes:
+      label: Affected Image Format(s)
+      multiple: true
+      options:
+        - JPEG / JPG
+        - PNG
+        - WebP
+        - HEIC / HEIF
+        - Multiple / Batch
+        - Other (UI / Shell)
+
+  - type: input
+    id: macos_version
+    attributes:
+      label: macOS Version
+      placeholder: "e.g., macOS 14.4 Sonoma (Apple Silicon M2)"
+    validations:
+      required: true
+
+  - type: input
+    id: app_version
+    attributes:
+      label: ImageForge Version
+      placeholder: "e.g., 0.1.0 or commit hash"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Error Output
+      description: If applicable, paste any console or terminal error logs here.
+      render: shell
